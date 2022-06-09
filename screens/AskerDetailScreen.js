@@ -250,7 +250,7 @@ function AskerDetailScreen({ userDetails, user, getTransactionInfos }) {
           style={styles.button}
           onPress={() => handleContinue()}
         >
-          <Text style={styles.buttonTitle}>Poursuivre</Text>
+          <Text style={styles.buttonTitle}>Continuer</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

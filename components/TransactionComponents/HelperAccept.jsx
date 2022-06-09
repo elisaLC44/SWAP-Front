@@ -101,7 +101,7 @@ function HelperAccept({
 
       <View style={styles.card}>
         <TouchableOpacity
-          onPress={{}}
+          // onPress={{}}
           style={{ width: "100%" }}
         >
           <View
@@ -190,7 +190,7 @@ function HelperAccept({
       </View>
 
       {/* BUTTONS */}
-      <View>{button}</View>
+      <View style={{height: 300}}>{button}</View>
     </View>
   );
 }

@@ -92,7 +92,10 @@ function LeaveComment({
       {/* PAGE TOP : titre et close button */}
 
       <View style={styles.card}>
-        <TouchableOpacity onPress={{}} style={{ width: "100%" }}>
+        <TouchableOpacity 
+        // onPress={{}} 
+        style={{ width: "100%" }}
+        >
           <View
             style={{
               flexDirection: "row",

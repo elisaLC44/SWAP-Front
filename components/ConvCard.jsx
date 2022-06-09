@@ -167,6 +167,7 @@ console.log('>>>>> convcard helper et asker status":', helperStatus, askerStatus
               </View>
             </View>
           </View>
+          
           {/* PASTILLE STATUS  borderColor: "blue", borderWidth: 3,  */}
           <View
             style={{

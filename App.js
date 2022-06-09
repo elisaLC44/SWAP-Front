@@ -19,7 +19,6 @@ import AskerDetailScreen from "./screens/AskerDetailScreen";
 import ComposeRequestScreen from "./screens/ComposeRequestScreen";
 import SearchResultScreen from "./screens/SearchResultScreen";
 import HelperDetailAfterSearch from "./screens/HelperDetailAfterSearch";
-import RequestSentConfirmation from "./screens/RequestSentConfirmation";
 import SignUpScreen from "./screens/SignUpScreen";
 import SignInScreen from "./screens/SignInScreen";
 
@@ -144,12 +143,6 @@ const BottomNavigator = () => {
         options={{ tabBarButton: () => null, tabBarVisible: true }}
         name="HelperDetailAfterSearch"
         component={HelperDetailAfterSearch}
-      />
-
-      <Tab.Screen
-        options={{ tabBarButton: () => null, tabBarVisible: true }}
-        name="RequestSentConfirmation"
-        component={RequestSentConfirmation}
       />
     </Tab.Navigator>
   );

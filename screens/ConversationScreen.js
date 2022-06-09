@@ -80,7 +80,7 @@ function ConversationScreen({ user, onAddMatches, allMatches, navigation }) {
 
   return (
     <ImageBackground
-      // source={require("../assets/background-1.png")}
+      source={require("../assets/background-1.png")}
       style={styles.container}
     >
       {/* "100%" */}
@@ -189,6 +189,7 @@ function ConversationScreen({ user, onAddMatches, allMatches, navigation }) {
           }}
         >
           {matchList}
+          <View style={styles.bottomCard}></View>
         </ScrollView>
       </View>
     </ImageBackground>
@@ -242,5 +243,23 @@ const styles = StyleSheet.create({
     borderWidth: 0.3,
     borderColor: "#DDD",
     marginTop: 8,
+  },
+  bottomCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    backgroundColor: "#FFF", // jaune clair FFDE70
+    shadowColor: "#171717",
+    shadowOffset: { width: 1, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 7,
+    borderBottomLeftRadius: 7,
+    borderBottomRightRadius: 7,
+    elevation: 6,
+    width: 340,
+    borderBottomWidth: 1,
+    borderColor: "#DDD",
+ 
   },
 });

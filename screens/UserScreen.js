@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   ImageBackground,
@@ -39,8 +39,8 @@ function UserScreen(props) {
 
   /* ---------------------------------------- */
 
-  const [firstName, setFirstName] = useState(props.user.firstName);
-  const [lastName, setLastName] = useState(props.user.lastName);
+  const [randomUserPic, setRandomUserPic] = useState("")
+  const [picInBDD, setPicInBDD] = useState(props.user.user_img)
   const [gender, setGender] = useState(props.user.gender);
   const [bio, setBio] = useState(props.user.bio);
   const [street, setStreet] = useState(props.user.address_street);
@@ -48,6 +48,34 @@ function UserScreen(props) {
   const [zipcode, setZipcode] = useState(props.user.address_zipcode);
   const [selectedCat, setSelectedCat] = useState([]);
 
+ 
+  useEffect(() => {
+    if(props.user.gender == "female"){
+      const findFemaleUser = async() => {
+        const data = await fetch(`https://randomuser.me/api/?gender=female`)
+        const body = await data.json()
+        console.log("random User result IF FEMALE {}: ", body.results)
+        setRandomUserPic(body.results[0].picture.medium)
+    }
+    findFemaleUser() 
+    
+   } else {
+      const findMaleUser = async() => {
+        const data = await fetch(`https://randomuser.me/api/?gender=male`)
+        const body = await data.json()
+        console.log("random User result IF MALE {}: ", body.results)
+        setRandomUserPic(body.results[0].picture.thumbnail) 
+      // console.log("randomUsers", body.results[0].picture.thumbnail)
+      // setRandomUserPic(body.results[0].picture.thumbnail) 
+    }
+    findMaleUser()
+    }
+    // fetch route pour enregistrer l'avatar
+       
+  },[])
+
+  
+ 
   const handleSubmitGender = async () => {
     // idem catégories, les infos de l'état gender sont enregistrée dans le store, via le composant <DropDownGender/>
     setGender(props.user.gender);
@@ -126,10 +154,6 @@ function UserScreen(props) {
 
   console.log("props.user.categories", props.user.categories);
 
-  let displayCategDropDown;
-  const updateCategories = () => {
-    return (displayCategDropDown = <DropDownCategories />);
-  };
 
   return (
     <ImageBackground
@@ -155,11 +179,12 @@ function UserScreen(props) {
             // borderWidth: 1,
           }}
         >
+          {/* props.user.user_img */}
           <Avatar
             size={75}
             backgroundColor={"transparent"}
             rounded
-            source={{ uri: props.user.user_img }}
+            source={picInBDD ? {uri : props.user.user_img } : {uri : randomUserPic}}
             title={props.user.firstName}
             titleStyle={{ fontSize: 12 }}
             containerStyle={

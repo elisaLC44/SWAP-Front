@@ -49,7 +49,8 @@ function TransactionScreen({ user, transactionDetails }) {
     getStatus();
   }, [helperStatus, askerStatus]);
 
-  /*------------ UPDATE DES STATUS POUR PASTILLES ET CHANGEMENT DE COMPOSANTS  -----*/
+  /* =========================== UPDATE DES STATUS POUR PASTILLES ET CHANGEMENT DE COMPOSANTS ===========================*/
+
   const updateStatus = async () => {
     let rawResponse = await fetch(
       `http://192.168.1.124:3000/get-status/${transactionDetails.matchDetails._id}`
@@ -217,7 +218,16 @@ function TransactionScreen({ user, transactionDetails }) {
     }
   }
 
-  /* ----------------------- CHAT ---------------------------*/
+  /* ===================================== CHAT ==========================================*/
+
+  /* --------------------- Overlay --------------------*/
+  const [overlayVisible, setOverlayVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setOverlayVisible(!overlayVisible);
+  };
+
+  /* --------------------- Websocket --------------------*/
   const [currentMessage, setCurrentMessage] = useState("");
   const [listMessages, setListMessages] = useState([]);
 
@@ -246,13 +256,14 @@ function TransactionScreen({ user, transactionDetails }) {
           maxWidth: 250,
         }}
       >
-      
         <Text style={{}}>{message.message}</Text>
       </View>
     );
   });
 
   let bottom = Platform.OS === "ios" ? 70 : 50;
+
+  /* ===================================== RETURN ==========================================*/
 
   return (
     <ImageBackground
@@ -302,7 +313,16 @@ function TransactionScreen({ user, transactionDetails }) {
           </Text>
         </View>
       </View>
+      
+      {/* borderWidth: 1, borderColor: "blue",  */}
+      <ScrollView
+        style={{ marginBottom: 0, }}
+        contentContainerStyle={{
+          flexDirection: "column",
+          alignItems: "center",
 
+        }}
+      >
       {/* ------- PASTILLES DE STATUS ------- */}
       <View
         style={{
@@ -310,7 +330,7 @@ function TransactionScreen({ user, transactionDetails }) {
           marginTop: 20,
           marginBottom: 20,
           justifyContent: "space-between",
-          width: "70%",
+          width: "75%",
           // borderWidth: 1,
           // borderColor: "red",
         }}
@@ -360,63 +380,135 @@ function TransactionScreen({ user, transactionDetails }) {
         </View>
 
         <View style={{ position: "absolute", top: 53 }}>
-          <View style={[styles.traits, { left: 52 }]}></View>
-          <View style={[styles.traits, { left: 165 }]}></View>
+          <View style={[styles.traits, { left: 50 }]}></View>
+          <View style={[styles.traits, { left: 160 }]}></View>
         </View>
       </View>
 
       {/* composants height: "100%",  */}
-      {transactionComponent}
 
-      <View style={styles.chat}>
+       
+          {transactionComponent}
+
+
+        </ScrollView>
         <View
           style={{
             width: "100%",
             flexDirection: "row",
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-            position: "absolute",
-            bottom: 178,
+            justifyContent: "center",
           }}
         >
-          <Text
-            style={{
-              marginLeft: 25,
-              marginTop: 12,
-              fontWeight: "bold",
-              fontSize: 15,
-            }}
-          >
-            Mes messages
-          </Text>
+          <View style={styles.chat}>
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+              }}
+            >
+              <Text
+                style={{
+                  marginLeft: 25,
+                  marginBottom: 12,
+                  fontWeight: "bold",
+                  fontSize: 15,
+                }}
+              >
+                Mes messages
+              </Text>
+            </View>
+           
+            <View
+              style={{
+                // borderColor: "green",
+                // borderWidth: 2,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "90%",
+              }}
+            >
+              <TouchableOpacity
+                onPress={toggleOverlay}
+                style={{
+                  fontSize: 14,
+                  paddingHorizontal: 15,
+                  paddingVertical: 12,
+                  width: "82%",
+                  backgroundColor: "white",
+                  borderRadius: 50,
+                  height: 45,
+                  elevation: 6,
+                }}
+              >
+                <Text style={{ color: "grey", fontSize: 13 }}>message</Text>
+              </TouchableOpacity>
+              <View
+                style={{
+                  backgroundColor: "#F7CE46",
+                  width: 40,
+                  height: 40,
+                  borderRadius: 50,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  elevation: 5,
+                }}
+              >
+                <FontAwesome name="send-o" size={26} color="black" />
+              </View>
+            </View>
+          </View>
         </View>
+     
+
+      <Overlay
+        isVisible={overlayVisible}
+        // onBackdropPress={() => toggleOverlay()}
+        fullScreen
+        overlayStyle={{
+          paddingVertical: 30,
+          paddingHorizontal: 20,
+          width: 380,
+          height: "98%",
+          position: "absolute",
+          bottom: 0,
+          borderTopLeftRadius: 15,
+          borderTopRightRadius: 15,
+          // borderWidth: 1,
+          // borderColor: "#DDD",
+          elevation: 6,
+          flexDirection: "column",
+        }}
+      >
         <View
           style={{
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-            width: "100%",
-            height: 100,
-            position: "absolute",
-            bottom: 73,
-            //    borderColor: "green",
-            // borderWidth: 2,
+            // borderWidth: 1,
+            // borderColor: "#DDD",
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
         >
-          <ScrollView content={styles.scrollZone}>
-          {conversation}
-          </ScrollView>
+          <Text style={{ fontWeight: "bold", fontSize: 15 }}>Messages</Text>
+          <TouchableOpacity onPress={toggleOverlay}>
+            <AntDesign name="close" size={24} color="black" />
+          </TouchableOpacity>
         </View>
+        <View style={{ flex: 14 }}>
+          <ScrollView content={styles.scrollZone}>{conversation}</ScrollView>
+        </View>
+
         <View
           style={{
+            // borderWidth: 1,
+            // borderColor: "#DDD",
+            flex: 1.5,
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            position: "absolute",
-            bottom: 28,
-            // borderColor: "green",
-            // borderWidth: 2,
-            width: "90%",
           }}
         >
           <TextInput
@@ -463,7 +555,7 @@ function TransactionScreen({ user, transactionDetails }) {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </Overlay>
     </ImageBackground>
   );
 }
@@ -491,7 +583,7 @@ const styles = StyleSheet.create({
   },
   traits: {
     backgroundColor: "#000000",
-    width: 55,
+    width: 52,
     height: 1,
     alignSelf: "center",
     position: "absolute",
@@ -503,11 +595,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
-    height: 210,
+    height: 120,
     width: "95%",
     elevation: 18,
-    position: "absolute",
-    bottom: 0,
+
   },
   scrollZone: {
     flex: 1,

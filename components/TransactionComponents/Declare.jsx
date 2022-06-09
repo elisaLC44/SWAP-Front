@@ -138,13 +138,15 @@ function Declare({
     .replace(/[\u0300-\u036f]/g, "")}.png`;
 
   return (
-    <View style={{ width: 340, flexDirection: "column", alignItems: "center" }}>
+    <View style={{ width: 340, flexDirection: "column", alignItems: "center", marginBottom: 30 }}>
       {/* borderWidth: 1, borderColor: 'red', */}
 
       {/* PAGE TOP : titre et close button */}
 
       <View style={styles.card}>
-        <TouchableOpacity onPress={{}}>
+        <TouchableOpacity 
+        // onPress={{}}
+        >
           <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
             <Avatar
               rounded
@@ -339,7 +341,12 @@ function Declare({
             <Text style={styles.text4}>Confirmer</Text>
           </TouchableOpacity>
         </View>
-      </Overlay>
+
+     </Overlay>
+
+     <Text style={{ fontSize: 13, color: "grey", marginTop: 35,}}>
+          Un problème? Pressez ici
+        </Text>
     </View>
   );
 }
@@ -444,6 +451,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     borderRadius: 5,
     elevation: 3,
+    marginTop: 10,
   },
   button3: {
     backgroundColor: "#000000",

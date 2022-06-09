@@ -17,7 +17,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
 
 /* ----------------------------- MAIN FUNCTION ---------------------------------*/
+
+
 function HomeScreen({ user, navigation }) {
+
+  const [picInBDD, setPicInBDD] = useState(user.user_img)
+
   useEffect(() => {
     setHelperOn(true);
   }, []);
@@ -56,6 +61,8 @@ function HomeScreen({ user, navigation }) {
     BGimage = require("../assets/background-1.png");
   }
 
+  let emptyAvatar = require("../assets/empty-avatar.jpg")
+
   return (
     <ImageBackground source={BGimage} style={styles.container}>
       {/* <OVERLAY> expliquant à l'utitilisateur de compléter son profil pour utiliser l'appli */}
@@ -81,16 +88,13 @@ function HomeScreen({ user, navigation }) {
               navigation.navigate("UserScreen");
             }}
           >
-            {/* ou API génératrice d'icones */}
+            {/* ou API génératrice d'icones  picInBDD ? {uri : user.user_img } : {require("../assets/empty-avatar.jpg")}*/}
             <Image
-              // source={{ uri: props.user.user_img }}
-              source={{ uri: user.user_img }}
+              source={picInBDD ? {uri : user.user_img } : {emptyAvatar}}
               style={{
                 borderRadius: 50,
-                height: 60,
-                width: 60,
-                // borderWidth: 1.5,
-                // borderColor: "white",
+                height: 65,
+                width: 65,
               }}
             />
           </TouchableOpacity>
@@ -134,8 +138,8 @@ function HomeScreen({ user, navigation }) {
 
           <View style={{ width: 150, position: "absolute", left: 15, top: 20 }}>
             {/* borderColor: "red", borderWidth: 1, */}
-            <Text style={{ fontSize: 20, fontWeight: "bold", marginLeft: 30 }}>
-              {user.user_credit}H
+            <Text style={{ fontSize: 20, fontWeight: "bold", marginLeft: 20 }}>
+              {user.user_credit}h
             </Text>
             <Text style={{ fontSize: 15, fontWeight: "bold" }}>
               Crédit temps

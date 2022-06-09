@@ -113,7 +113,10 @@ function Confirmation({
       {/* PAGE TOP : titre et close button */}
 
       <View style={styles.card}>
-        <TouchableOpacity onPress={{}} style={{ width: "100%" }}>
+        <TouchableOpacity 
+        // onPress={{}} 
+        style={{ width: "100%" }}
+        >
           <View
             style={{
               flexDirection: "row",
@@ -278,7 +281,7 @@ function Confirmation({
           marginTop: 20,
         }}
       >
-        <Text style={{ fontSize: 13, color: "grey" }}>
+        <Text style={{ fontSize: 13, color: "grey", marginTop: 25, }}>
           Un problème? Pressez ici
         </Text>
       </View>

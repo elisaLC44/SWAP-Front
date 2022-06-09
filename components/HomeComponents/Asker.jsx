@@ -35,16 +35,16 @@ export default function Asker() {
         </View>
       </TouchableOpacity>
 
-      <View style={{ marginTop: 40, }}>
+      <View style={{ marginTop: 50, }}>
         <Text style={{ fontWeight: "bold", fontSize: 15, marginRight: 15, marginLeft: 3, marginBottom: 10, }}>
           Mes demandes envoyées
         </Text>
 
         <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("AskerRequestListScreen");
+        // onPress={() => {
+        //   navigation.navigate("AskerRequestListScreen");
           // AskerRequestListScreen
-        }}
+        // }}
         >
           <View style={styles.upperCard}>
             <Image source={require('../../assets/categories/yoga.png')} style={{height: 22, width: 22, marginLeft: 20}}/>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 7,
     elevation: 3,
-    marginTop: 15,
+    marginTop: 25,
 },
 upperCard: { 
   flexDirection: "row",
