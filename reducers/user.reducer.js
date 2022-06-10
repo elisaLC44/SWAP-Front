@@ -15,6 +15,12 @@ export default function (user = {}, action) {
       // console.log("REDUCER GENDER ==>", userCopy);
       return userCopy;
 
+    } else if (action.type === "onUpdateAvatar") {
+      let userCopy = user;
+      userCopy.user_img = action.avatar ;
+      // console.log("REDUCER GENDER ==>", userCopy);
+      return userCopy;
+
     } else {
       return user;
     }

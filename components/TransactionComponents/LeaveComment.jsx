@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import { Text, Avatar } from "react-native-elements";
+import { Text, Avatar, Overlay } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
@@ -25,13 +25,11 @@ function LeaveComment({
   user,
   opponent_id,
 }) {
-
-  console.log("opponent ID -comment COMPONENT:", opponent_id)
+  console.log("opponent ID -comment COMPONENT:", opponent_id);
   const navigation = useNavigation();
 
   const [creditBDD, setCreditBDD] = useState(0);
   const [declareDateBDD, setDeclareDateBDD] = useState(0);
-  const [comment, setComment] = useState("");
 
   useEffect(() => {
     async function getDeclaration() {
@@ -75,16 +73,25 @@ function LeaveComment({
     getStatus();
   }, [helperStatus, askerStatus]);
 
+  const [comment, setComment] = useState("");
+  const [overlayVisible, setOverlayVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setOverlayVisible(!overlayVisible);
+    setComment("");
+  };
+
   const handleComment = async () => {
     let rawResponse = await fetch(`http://192.168.1.124:3000/add-comment`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `token=${user.token}&comment=${comment}&opponent_id=${opponent_id}`,
     });
-    let response = await rawResponse.json()
+    let response = await rawResponse.json();
     if (response) {
-      console.log("REPONSE DU BACK - COMMENT:", response)
+      console.log("REPONSE DU BACK - COMMENT:", response);
     }
+    toggleOverlay();
   };
 
   return (
@@ -92,9 +99,9 @@ function LeaveComment({
       {/* PAGE TOP : titre et close button */}
 
       <View style={styles.card}>
-        <TouchableOpacity 
-        // onPress={{}} 
-        style={{ width: "100%" }}
+        <TouchableOpacity
+          // onPress={{}}
+          style={{ width: "100%" }}
         >
           <View
             style={{
@@ -252,6 +259,32 @@ function LeaveComment({
             <FontAwesome name="send-o" size={28} color="black" />
             {/* #F7CE46 */}
           </TouchableOpacity>
+
+          <Overlay
+            isVisible={overlayVisible}
+            onBackdropPress={() => toggleOverlay()}
+            // fullScreen
+            overlayStyle={{
+              paddingVertical: 70,
+              paddingHorizontal: 20,
+              width: 400,
+              borderRadius: 7,
+            }}
+          >
+            <View
+              style={{  flexDirection: "column",  justifyContent: "center",  alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 8 }}>
+                Votre commentaire a bien été envoyé.
+              </Text>
+              <Text
+                style={{ fontSize: 15, fontWeight: "bold",  }}
+              >
+                Merci pour votre participation! 🤝
+              </Text>
+            </View>
+          </Overlay>
         </View>
       </View>
     </View>

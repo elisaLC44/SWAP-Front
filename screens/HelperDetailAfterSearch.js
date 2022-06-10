@@ -16,9 +16,13 @@ import { connect } from "react-redux";
 
 /* ---------------------------------------- MAIN FUNCTION -------------------------------------------*/
 function HelperDetailAfterSearch({ helperDetails }) {
-  console.log(">>>>  HELPER DETAILS", helperDetails);
+  console.log(
+    "$$$$$ HELPER DETAILS INSERT DATE",
+    helperDetails.comments[0].insert_date
+  );
   const navigation = useNavigation();
-  console.log(" helperDetails.comments",  helperDetails.comments)
+  // console.log(" helperDetails.comments",  helperDetails.comments)
+
   return (
     <ImageBackground
       source={require("../assets/background-1.png")}
@@ -132,7 +136,7 @@ function HelperDetailAfterSearch({ helperDetails }) {
                 <Text
                   style={{
                     fontSize: 16,
-                    marginTop: 20,
+                    marginTop: 13,
                     marginBottom: 5,
                     fontWeight: "bold",
                   }}
@@ -179,14 +183,26 @@ function HelperDetailAfterSearch({ helperDetails }) {
                 style={{
                   fontSize: 16,
                   marginTop: 20,
-                  marginBottom: 5,
+                  marginBottom: 10,
                   fontWeight: "bold",
                 }}
               >
                 Description
               </Text>
               <View style={{}}>
-                <Text>{helperDetails.bio}</Text>
+                {helperDetails.bio ? (
+                  <View>
+                    <Text style={{ fontSize: 14,}}>
+                      {helperDetails.bio}
+                    </Text>
+                  </View>
+                ) : (
+                  <View>
+                    <Text style={{ fontSize: 12, color: "grey" }}>
+                      {helperDetails.firstName} n'a pas encore de commentaire
+                    </Text>
+                  </View>
+                )}
               </View>
 
               {/* divider */}
@@ -196,7 +212,7 @@ function HelperDetailAfterSearch({ helperDetails }) {
                   opacity: 0.5,
                   borderBottomWidth: 0.5,
                   width: "100%",
-                  marginTop: 30,
+                  marginTop: 25,
                 }}
               />
 
@@ -205,31 +221,31 @@ function HelperDetailAfterSearch({ helperDetails }) {
                 style={{
                   fontSize: 16,
                   marginTop: 20,
-                  marginBottom: 5,
+                  marginBottom: 10,
                   fontWeight: "bold",
                 }}
               >
                 Commentaires
               </Text>
-            
+
               {helperDetails.comments.length > 0 ? (
-                
                 helperDetails.comments.map((comment, i) => {
                   return (
-                    <View key={i}>
-                      <Text style={styles.comments}>{comment.author}</Text>
-                      <Text style={styles.bodyText}>{comment.content}</Text>
+                    <View key={i} style={{ marginBottom: 12 }}>
+                      <Text style={{ fontSize: 12, color: "grey" }}>
+                        {comment.author}
+                      </Text>
+                      <Text style={{ fontSize: 14 }}>{comment.content}</Text>
                     </View>
                   );
                 })
-              ) : 
-                (<View>
+              ) : (
+                <View>
                   <Text style={styles.bodyText}>
                     {helperDetails.firstName} n'a pas encore de commentaire
                   </Text>
                 </View>
               )}
-
             </ScrollView>
           </View>
         </View>

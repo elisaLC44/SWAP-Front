@@ -48,33 +48,58 @@ function UserScreen(props) {
   const [zipcode, setZipcode] = useState(props.user.address_zipcode);
   const [selectedCat, setSelectedCat] = useState([]);
 
- 
-  useEffect(() => {
-    if(props.user.gender == "female"){
-      const findFemaleUser = async() => {
-        const data = await fetch(`https://randomuser.me/api/?gender=female`)
+ console.log("randomUserPic: ", randomUserPic)
+ console.log("picInBDD: ", picInBDD)
+ console.log("gender venant de redux :", props.user.gender)
+
+  const handleAvatar = async () => {
+        // useEffect(() => {
+    if(props.user.gender == "Non Binaire" || props.user.gender == "" ){
+      const findNonBinaryUser = async() => {
+        const data = await fetch(`https://randomuser.me/api/?results=5`)
         const body = await data.json()
-        console.log("random User result IF FEMALE {}: ", body.results)
+        // console.log("random User result IF NON-BINARY {}: ", body.results)
         setRandomUserPic(body.results[0].picture.medium)
     }
-    findFemaleUser() 
+    findNonBinaryUser() 
     
-   } else {
+   } else if(props.user.gender == "Femme"){
+    const findFemaleUser = async() => {
+      const data = await fetch(`https://randomuser.me/api/?gender=female`)
+      const body = await data.json()
+      // console.log("random User result IF FEMALE {}: ", body.results)
+      setRandomUserPic(body.results[0].picture.medium)
+  }
+  findFemaleUser() 
+  
+ }  else {
       const findMaleUser = async() => {
         const data = await fetch(`https://randomuser.me/api/?gender=male`)
         const body = await data.json()
-        console.log("random User result IF MALE {}: ", body.results)
+        // console.log("random User result IF MALE {}: ", body.results)
         setRandomUserPic(body.results[0].picture.thumbnail) 
       // console.log("randomUsers", body.results[0].picture.thumbnail)
-      // setRandomUserPic(body.results[0].picture.thumbnail) 
     }
     findMaleUser()
     }
-    // fetch route pour enregistrer l'avatar
-       
-  },[])
 
-  
+    let rawResponse = await fetch(
+      `http://192.168.1.124:3000/users/update-avatar/${props.user.token}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `avatar=${randomUserPic}`,
+      }
+    );
+    let response = await rawResponse.json();
+    if(response.result){
+      console.log(">>>>>>> avatar du back:", response.updatedUser.user_img);
+    }
+    props.onUpdateAvatar(response.updatedUser.user_img)
+       
+  // },[])
+    }
+
  
   const handleSubmitGender = async () => {
     // idem catégories, les infos de l'état gender sont enregistrée dans le store, via le composant <DropDownGender/>
@@ -119,6 +144,7 @@ function UserScreen(props) {
     console.log(">>>>> bio:", response.updatedUser.bio);
   };
 
+  // console.log("props.user.categories", props.user.categories);
   const handleSubmitCateg = async () => {
     // dans le cas des categories, comme la modification de l'état se fait dans le composant <DropDownCategories/>
     // on ne peut modifier l'état selectedCat de ce fichier qu'en allant chercher la donnée qui a été
@@ -152,8 +178,7 @@ function UserScreen(props) {
     );
   });
 
-  console.log("props.user.categories", props.user.categories);
-
+ 
 
   return (
     <ImageBackground
@@ -174,29 +199,31 @@ function UserScreen(props) {
             borderRadius: 50,
             position: "relative",
             right: 130,
-            bottom: 10,
+            bottom: 20,
             // borderColor: "grey",
             // borderWidth: 1,
           }}
         >
-          {/* props.user.user_img */}
+
+          <TouchableOpacity
+          onPress={() => handleAvatar()}
+          >
           <Avatar
-            size={75}
+            size={70}
             backgroundColor={"transparent"}
             rounded
             source={picInBDD ? {uri : props.user.user_img } : {uri : randomUserPic}}
             title={props.user.firstName}
             titleStyle={{ fontSize: 12 }}
-            containerStyle={
-              {
-                // borderColor: 'grey',
-                // borderWidth: 1,
-              }
-            }
+            containerStyle={{ // borderColor: 'grey', // borderWidth: 1,
+             }}
           >
             <Avatar.Accessory size={23} />
           </Avatar>
+          <Text style={{ fontSize: 10, marginTop: 5}}>Changer d'avatar</Text>
+          </TouchableOpacity>
         </View>
+
         <View>
           <TouchableOpacity
             style={{
@@ -294,42 +321,6 @@ function UserScreen(props) {
       >
         <View style={{ backgroundColor: "#FFFFFF", marginLeft: 20 }}>
 
-          {/* <View
-            style={{
-              width: 320,
-              elevation: 2,
-              marginTop: 5,
-              paddingHorizontal: 7,
-              backgroundColor: "#FFF",
-              borderRadius: 6,
-            }}
-          >
-            <View>
-              <TouchableOpacity
-                onPress={() => {
-                  updateStateBirth();
-                }}
-                style={{ position: "absolute", left: 270, top: 5 }}
-              >
-                <EvilIcons name="pencil" size={40} color="yellow" />
-              </TouchableOpacity>
-            </View>
-
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text>DATE DE NAISSANCE:</Text>
-              <Input
-                containerStyle={{ maxWidth: 60, height: 40 }}
-                inputStyle={{ fontSize: 13 }}
-                inputContainerStyle={
-                  isEditableBirth === true ? styles.inputOn : styles.inputOff
-                }
-                onChange={(text) => setBirthDate(text)}
-                editable={isEditableBirth}
-                value={birthDate}
-              />
-            </View>
-          </View> */}
-
           <View>
             <TouchableOpacity
               onPress={() => {
@@ -349,7 +340,7 @@ function UserScreen(props) {
             <View
               style={{ flexDirection: "column", justifyContent: "flex-start" }}
             >
-              <Text>{props.user.gender}</Text>
+            <Text>{props.user.gender}</Text>
               <DropDownGender />
             </View>
           </View>
@@ -358,7 +349,7 @@ function UserScreen(props) {
             <TouchableOpacity
               onPress={() => {
                 handleSubmitAddress();
-                updateStateAddress();
+                // updateStateAddress();
               }}
               style={{ position: "absolute", left: 290, top: 18 }}
             >
@@ -373,7 +364,7 @@ function UserScreen(props) {
             <TextInput
               textAlignVertical={"top"}
               style={styles.inputAdresse}
-              placeholder="Nom de rue"
+              placeholder="nom de rue"
               placeholderTextColor="grey"
               onChangeText={(text) => setStreet(text)}
               value={street}
@@ -391,7 +382,7 @@ function UserScreen(props) {
             <TextInput
               textAlignVertical={"top"}
               style={styles.inputCity}
-              placeholder="Ville"
+              placeholder="ville"
               placeholderTextColor="grey"
               onChangeText={(text) => setCity(text)}
               value={city}
@@ -446,7 +437,7 @@ function UserScreen(props) {
               <TouchableOpacity
                 onPress={() => {
                   handleSubmitCateg();
-                  updateCategories();
+                  // updateCategories();
                 }}
                 style={{ position: "absolute", left: 290, top: 18 }}
               >
@@ -492,7 +483,15 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-export default connect(mapStateToProps, null)(UserScreen);
+function mapDispatchToProps(dispatch) {
+  return {
+    onUpdateAvatar: function (avatar) {
+      dispatch({ type: "onUpdateAvatar", avatar: avatar });
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserScreen);
 
 const styles = StyleSheet.create({
   container: {

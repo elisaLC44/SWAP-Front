@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, ImageBackground, View, Text, Image, ScrollView } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  StyleSheet,
+  ImageBackground,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { connect } from 'react-redux';
-
+import { connect } from "react-redux";
 
 /* ----------------------------- MAIN FUNCTION ---------------------------------*/
 function SignInScreen(props) {
-
-
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // console.log(">>> Email: ", email);
@@ -27,64 +32,87 @@ function SignInScreen(props) {
       body: `email=${email}&password=${password}`,
     });
     response = await response.json();
-    console.log(  "REPONSE DU BACK ==>", response.login,  "AND error",  response.error,  "AND token:",  response.token, "AND USERINFO", response.userInfo );
+    console.log(
+      "REPONSE DU BACK ==>",
+      response.login,
+      "AND error",
+      response.error,
+      "AND token:",
+      response.token,
+      "AND USERINFO",
+      response.userInfo
+    );
 
-    props.saveUserInfo(response.userInfo)
+    props.saveUserInfo(response.userInfo);
 
     if (response.login === true) {
       AsyncStorage.setItem("token", response.token);
-      return props.navigation.navigate("BottomNavigator", { screen: "HomeScreen", });
+      return props.navigation.navigate("BottomNavigator", {
+        screen: "HomeScreen",
+      });
     }
 
     if (response.error !== []) {
       setErrorMessage(response.error);
     }
-
   };
-
 
   return (
     <ImageBackground
       source={require("../assets/background-1.png")}
       style={styles.container}
     >
-      <ScrollView style={{flex:1, marginTop: 50}}>
-      <View style={{ fontSize: 30 }}>
-        <Text style={{ fontSize: 25, marginBottom: 35 }}>Sign In - Connexion Screen</Text>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "flex-end",
+          marginBottom: 40,
+        }}
+      >
+        <Text style={{ fontSize: 25 }}>Connexion</Text>
       </View>
 
-      <Input
-        leftIcon={<Icon name="account-outline" size={20} />}
-        placeholder="Email"
-        containerStyle={{ width: 300 }}
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-      ></Input>
+      <View style={{ flex: 4 }}>
+      <ScrollView
+        contentContainerStyle={{flexDirection: "column", alignItems: "center"}}>
+          <Input
+            containerStyle={styles.input}
+            inputStyle={{ fontSize: 13 }}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
+            placeholder="Email"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+          ></Input>
 
-      <Input
-        leftIcon={<Icon name="account-outline" size={20} />}
-        placeholder="Mot de passe"
-        containerStyle={{ width: 300, marginBottom: 50 }}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry={true}
-        value={password}
-      ></Input>
+          <Input
+            placeholder="Mot de passe"
+            containerStyle={styles.input}
+            inputStyle={{ fontSize: 13 }}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry={true}
+            value={password}
+          ></Input>
 
-      <View>
-        <Text style={{ fontSize: 15, marginBottom: 15, color: "grey" }}>
-          {errorMessage}
-        </Text>
-      </View>
+          <View>
+            <Text style={{ fontSize: 15, marginBottom: 15, color: "grey" }}>
+              {errorMessage}
+            </Text>
+          </View>
 
-      <Button
-      buttonStyle={{ backgroundColor: "#F7CE46" }}
-      title="Connexion"
-      type="solid"
-      onPress={() => {handleSubmit()}}
-      />
+          <TouchableOpacity
+              style={styles.button}
+              onPress={async () => {
+                handleSubmit();
+              }}
+            >
+              <Text style={styles.text}>Connexion</Text>
+            </TouchableOpacity>
 
-           {/* TITLE */}
-           <View>
+
+          {/* TITLE */}
+          <View>
             <Text
               style={{
                 color: "black",
@@ -122,44 +150,78 @@ function SignInScreen(props) {
           </View>
 
           <Text
-        style={{
-          color: "grey",
-          fontSize: 13,
-          marginTop: 40,
-          alignSelf: "center",
-        }}
-        onPress={() => {
-          props.navigation.navigate("SignUpScreen");
-        }}
-      >
-        Pas encore de compte Swap? C'est par ici
-      </Text>
-      </ScrollView>
+            style={{
+              color: "grey",
+              fontSize: 13,
+              marginTop: 40,
+              alignSelf: "center",
+            }}
+            onPress={() => {
+              props.navigation.navigate("SignUpScreen");
+            }}
+          >
+            Pas encore de compte Swap? C'est par ici
+          </Text>
+        </ScrollView>
+      </View>
     </ImageBackground>
   );
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   return {
-    saveUserInfo: function(info) {
+    saveUserInfo: function (info) {
       dispatch({
-        type: 'saveUserInfo',
-        userInfo : info 
-    })
-    }
-  }
+        type: "saveUserInfo",
+        userInfo: info,
+      });
+    },
+  };
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-) (SignInScreen);
-
+export default connect(null, mapDispatchToProps)(SignInScreen);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  input: {
+    height: 45,
+    width: Dimensions.get("window").width * 0.85,
+    fontSize: 13,
+    margin: 15,
+    borderWidth: 0.5,
+    paddingLeft: 15,
+    borderRadius: 10,
+    borderColor: "#E7E7E7",
+    backgroundColor: "#FFFFFF",
+    elevation: 3,
+    shadowColor: "#171717",
+    shadowOffset: { width: 1, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 7,
+  },
+  button: {
+    backgroundColor: "#F7CE46",
+    alignItems: "center",
+    width: Dimensions.get("window").width * 0.85,
+    paddingVertical: 8,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    elevation: 3,
+    shadowColor: "#171717",
+    shadowOffset: { width: 1, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 7,
+    elevation: 3,
+    height: 45,
+  },
+  text: {
+    color: "#000000",
+    fontSize: 18,
+    fontWeight: "bold",
+    letterSpacing: 0.6,
   },
 });

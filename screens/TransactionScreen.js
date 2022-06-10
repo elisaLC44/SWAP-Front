@@ -242,21 +242,23 @@ function TransactionScreen({ user, transactionDetails }) {
 
   let conversation = listMessages.map((message, i) => {
     return (
-      <View
-        key={i}
-        style={{
-          backgroundColor: "#F7CE46",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          paddingVertical: 6,
-          paddingHorizontal: 10,
-          marginBottom: 10,
-          borderRadius: 50,
-          marginRight: 40,
-          maxWidth: 250,
-        }}
-      >
-        <Text style={{}}>{message.message}</Text>
+      <View  style={{alignItems : "flex-end"}}>
+        <View
+          key={i}
+          style={{
+            backgroundColor: "#F7CE46",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            paddingVertical: 6,
+            paddingHorizontal: 10,
+            marginBottom: 10,
+            borderRadius: 50,
+            // marginRight: 40,
+            alignItems: "flex-end",
+          }}
+        >
+          <Text style={{}}>{message.message}</Text>
+        </View>
       </View>
     );
   });
@@ -313,156 +315,151 @@ function TransactionScreen({ user, transactionDetails }) {
           </Text>
         </View>
       </View>
-      
+
       {/* borderWidth: 1, borderColor: "blue",  */}
       <ScrollView
-        style={{ marginBottom: 0, }}
+        style={{ marginBottom: 0 }}
         contentContainerStyle={{
           flexDirection: "column",
           alignItems: "center",
-
         }}
       >
-      {/* ------- PASTILLES DE STATUS ------- */}
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 20,
-          marginBottom: 20,
-          justifyContent: "space-between",
-          width: "75%",
-          // borderWidth: 1,
-          // borderColor: "red",
-        }}
-      >
-        {/* position: "absolute", top: 20, */}
-        {/* CHECK 1 */}
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <AntDesign name="checkcircle" size={30} color={color1} />
-          <Text
-            style={{
-              color: "black",
-              fontSize: 10,
-              marginTop: 10,
-            }}
-          >
-            Acceptée
-          </Text>
-        </View>
-
-        {/* CHECK 2 */}
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <AntDesign name="checkcircle" size={30} color={color2} />
-          <Text
-            style={{
-              color: "black",
-              fontSize: 10,
-              marginTop: 10,
-            }}
-          >
-            Déclarée par l'aidant
-          </Text>
-        </View>
-
-        {/* CHECK 3 */}
-
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <AntDesign name="checkcircle" size={30} color={color3} />
-          <Text
-            style={{
-              color: "black",
-              fontSize: 10,
-              marginTop: 10,
-            }}
-          >
-            Confirmé
-          </Text>
-        </View>
-
-        <View style={{ position: "absolute", top: 53 }}>
-          <View style={[styles.traits, { left: 50 }]}></View>
-          <View style={[styles.traits, { left: 160 }]}></View>
-        </View>
-      </View>
-
-      {/* composants height: "100%",  */}
-
-       
-          {transactionComponent}
-
-
-        </ScrollView>
+        {/* ------- PASTILLES DE STATUS ------- */}
         <View
           style={{
-            width: "100%",
             flexDirection: "row",
-            justifyContent: "center",
+            marginTop: 20,
+            marginBottom: 20,
+            justifyContent: "space-between",
+            width: "75%",
+            // borderWidth: 1,
+            // borderColor: "red",
           }}
         >
-          <View style={styles.chat}>
-            <View
+          {/* position: "absolute", top: 20, */}
+          {/* CHECK 1 */}
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <AntDesign name="checkcircle" size={30} color={color1} />
+            <Text
               style={{
-                width: "100%",
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "flex-start",
+                color: "black",
+                fontSize: 10,
+                marginTop: 10,
               }}
             >
-              <Text
-                style={{
-                  marginLeft: 25,
-                  marginBottom: 12,
-                  fontWeight: "bold",
-                  fontSize: 15,
-                }}
-              >
-                Mes messages
-              </Text>
-            </View>
-           
+              Acceptée
+            </Text>
+          </View>
+
+          {/* CHECK 2 */}
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <AntDesign name="checkcircle" size={30} color={color2} />
+            <Text
+              style={{
+                color: "black",
+                fontSize: 10,
+                marginTop: 10,
+              }}
+            >
+              Déclarée par l'aidant
+            </Text>
+          </View>
+
+          {/* CHECK 3 */}
+
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <AntDesign name="checkcircle" size={30} color={color3} />
+            <Text
+              style={{
+                color: "black",
+                fontSize: 10,
+                marginTop: 10,
+              }}
+            >
+              Confirmé
+            </Text>
+          </View>
+
+          <View style={{ position: "absolute", top: 53 }}>
+            <View style={[styles.traits, { left: 50 }]}></View>
+            <View style={[styles.traits, { left: 160 }]}></View>
+          </View>
+        </View>
+
+        {/* composants height: "100%",  */}
+
+        {transactionComponent}
+      </ScrollView>
+      <View
+        style={{
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <View style={styles.chat}>
+          <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+            }}
+          >
+            <Text
+              style={{
+                marginLeft: 25,
+                marginBottom: 12,
+                fontWeight: "bold",
+                fontSize: 15,
+              }}
+            >
+              Mes messages
+            </Text>
+          </View>
+
+          <View
+            style={{
+              // borderColor: "green",
+              // borderWidth: 2,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "90%",
+            }}
+          >
+            <TouchableOpacity
+              onPress={toggleOverlay}
+              style={{
+                fontSize: 14,
+                paddingHorizontal: 15,
+                paddingVertical: 12,
+                width: "82%",
+                backgroundColor: "white",
+                borderRadius: 50,
+                height: 45,
+                elevation: 6,
+              }}
+            >
+              <Text style={{ color: "grey", fontSize: 13 }}>message</Text>
+            </TouchableOpacity>
             <View
               style={{
-                // borderColor: "green",
-                // borderWidth: 2,
+                backgroundColor: "#F7CE46",
+                width: 40,
+                height: 40,
+                borderRadius: 50,
                 flexDirection: "row",
-                justifyContent: "space-between",
+                justifyContent: "center",
                 alignItems: "center",
-                width: "90%",
+                elevation: 5,
               }}
             >
-              <TouchableOpacity
-                onPress={toggleOverlay}
-                style={{
-                  fontSize: 14,
-                  paddingHorizontal: 15,
-                  paddingVertical: 12,
-                  width: "82%",
-                  backgroundColor: "white",
-                  borderRadius: 50,
-                  height: 45,
-                  elevation: 6,
-                }}
-              >
-                <Text style={{ color: "grey", fontSize: 13 }}>message</Text>
-              </TouchableOpacity>
-              <View
-                style={{
-                  backgroundColor: "#F7CE46",
-                  width: 40,
-                  height: 40,
-                  borderRadius: 50,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  elevation: 5,
-                }}
-              >
-                <FontAwesome name="send-o" size={26} color="black" />
-              </View>
+              <FontAwesome name="send-o" size={26} color="black" />
             </View>
           </View>
         </View>
-     
+      </View>
 
       <Overlay
         isVisible={overlayVisible}
@@ -598,7 +595,6 @@ const styles = StyleSheet.create({
     height: 120,
     width: "95%",
     elevation: 18,
-
   },
   scrollZone: {
     flex: 1,

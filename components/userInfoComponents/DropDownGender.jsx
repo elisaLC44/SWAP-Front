@@ -4,16 +4,17 @@ import { Dropdown } from "react-native-element-dropdown";
 import { connect } from "react-redux";
 
 const data = [
-  { label: "Femme", value: "female" },
-  { label: "Homme", value: "male" },
-  { label: "Non Binaire", value: "non binary" },
+  { label: "Femme", value: "Femme" },
+  { label: "Homme", value: "Homme" },
+  { label: "Non Binaire", value: "Non Binaire" },
 ];
 
 
 /* ----------------------------- MAIN FUNCTION ---------------------------------*/
 function DropDownGender (props) {
   const [selected, setSelected] = useState([]);
-  // console.log(selected);
+  console.log(selected);
+
   return (
     <View style={styles.container}>
       <Dropdown

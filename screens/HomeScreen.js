@@ -21,7 +21,6 @@ import { connect } from "react-redux";
 
 function HomeScreen({ user, navigation }) {
 
-  const [picInBDD, setPicInBDD] = useState(user.user_img)
 
   useEffect(() => {
     setHelperOn(true);
@@ -61,8 +60,7 @@ function HomeScreen({ user, navigation }) {
     BGimage = require("../assets/background-1.png");
   }
 
-  let emptyAvatar = require("../assets/empty-avatar.jpg")
-
+  console.log('avatar redux - Home: ', user.user_img)
   return (
     <ImageBackground source={BGimage} style={styles.container}>
       {/* <OVERLAY> expliquant à l'utitilisateur de compléter son profil pour utiliser l'appli */}
@@ -89,14 +87,22 @@ function HomeScreen({ user, navigation }) {
             }}
           >
             {/* ou API génératrice d'icones  picInBDD ? {uri : user.user_img } : {require("../assets/empty-avatar.jpg")}*/}
-            <Image
-              source={picInBDD ? {uri : user.user_img } : {emptyAvatar}}
-              style={{
-                borderRadius: 50,
-                height: 65,
-                width: 65,
-              }}
-            />
+
+            <Avatar
+            size={70}
+            backgroundColor={"transparent"}
+            rounded
+            source={{uri: user.user_img}}
+            titleStyle={{ fontSize: 12 }}
+            containerStyle={
+              {
+                // borderColor: 'grey',
+                // borderWidth: 1,
+              }
+            }
+          >
+          </Avatar>
+
           </TouchableOpacity>
           <View>
             <Text style={{ fontSize: 17, fontWeight: "bold", marginLeft: 10 }}>
