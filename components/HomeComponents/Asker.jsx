@@ -15,10 +15,6 @@ export default function Asker() {
   }
 
   return (
-    // <ImageBackground
-    // source={require("./bubbles-bleu.png")}
-    // style={styles.container}
-    // >
 
     <View style={{flexDirection: 'column', alignItems: 'center'}}>
 
@@ -70,7 +66,6 @@ export default function Asker() {
 
       </View>
     </View>
-    // </ImageBackground>
 
   );
 }

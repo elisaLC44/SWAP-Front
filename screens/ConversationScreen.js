@@ -21,7 +21,7 @@ function ConversationScreen({ user, onAddMatches, allMatches, navigation }) {
     if (isFocused) {
       async function getAllMatches() {
         let rawResponse = await fetch(
-          `http://192.168.1.124:3000/get-allmatches/${user.token}`
+          `https://swap-newapp.herokuapp.com/get-allmatches/${user.token}`
         );
 
         let response = await rawResponse.json();

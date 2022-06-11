@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// { useEffect }
 import {
   StyleSheet,
   ImageBackground,
@@ -11,8 +10,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Input } from "react-native-elements";
-import { Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
@@ -33,7 +30,7 @@ function SignUpScreen(props) {
   console.log(">>> Error Message SIGN UP: ", errorMessage);
 
   const handleSubmit = async () => {
-    let response = await fetch("http://192.168.1.124:3000/users/sign-up", {
+    let response = await fetch("https://swap-newapp.herokuapp.com/users/sign-up", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}`,

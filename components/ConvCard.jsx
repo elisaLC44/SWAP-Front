@@ -51,7 +51,7 @@ console.log('>>>>> convcard helper et asker status":', helperStatus, askerStatus
   //   if (isFocused) {
   //   async function getStatus(){
   //     let rawResponse = await fetch(
-  //       `http://192.168.1.124:3000/get-status/${matchDetails._id}`
+  //       `https://swap-newapp.herokuapp.com/get-status/${matchDetails._id}`
   //     );
   //     let response = await rawResponse.json();
   //     console.log('reponse du Back CONVCARD - get-status', response.asker_status, response.helper_status, )

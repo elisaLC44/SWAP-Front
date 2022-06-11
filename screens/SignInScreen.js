@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   ImageBackground,
@@ -10,8 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Button, Input } from "react-native-elements";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Input } from "react-native-elements";
 
 import { connect } from "react-redux";
 
@@ -19,14 +18,12 @@ import { connect } from "react-redux";
 function SignInScreen(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // console.log(">>> Email: ", email);
-  // console.log(">>> Password: ", password);
 
   const [errorMessage, setErrorMessage] = useState([]);
   console.log(">>> Error Message SIGN IN: ", errorMessage);
 
   const handleSubmit = async () => {
-    let response = await fetch("http://192.168.1.124:3000/users/sign-in", {
+    let response = await fetch("https://swap-newapp.herokuapp.com/users/sign-in", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `email=${email}&password=${password}`,

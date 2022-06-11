@@ -11,7 +11,7 @@ export default function Helper({ user, onGetRequestDetails, requestDetails }) {
   // useEffect(() => {
   //   async function getRequests() {
   //     let request = await fetch(
-  //       `http://192.168.1.124:3000/get-requests/${user.token}`
+  //       `https://swap-newapp.herokuapp.com/get-requests/${user.token}`
   //     );
   //     let response = await request.json();
 

@@ -35,7 +35,7 @@ function TransactionScreen({ user, transactionDetails }) {
   useEffect(() => {
     async function getStatus() {
       let rawResponse = await fetch(
-        `http://192.168.1.124:3000/get-status/${transactionDetails.matchDetails._id}`
+        `https://swap-newapp.herokuapp.com/get-status/${transactionDetails.matchDetails._id}`
       );
       let response = await rawResponse.json();
       console.log(
@@ -53,7 +53,7 @@ function TransactionScreen({ user, transactionDetails }) {
 
   const updateStatus = async () => {
     let rawResponse = await fetch(
-      `http://192.168.1.124:3000/get-status/${transactionDetails.matchDetails._id}`
+      `https://swap-newapp.herokuapp.com/get-status/${transactionDetails.matchDetails._id}`
     );
     let response = await rawResponse.json();
     setAskerStatus(response.asker_status);

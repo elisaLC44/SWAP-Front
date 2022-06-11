@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image} from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 import Onboarding from "../components/DemoComponents/Onboarding";
 
 import { connect } from "react-redux";
@@ -25,7 +25,7 @@ function DemoScreen(props) {
       console.log("LOCAL STORAGE TOKEN - DEMO:", data);
         // 192.168.1.124
         if (data) {
-          let response = await fetch( `http://192.168.1.124:3000/users/get-user/${data}`);
+          let response = await fetch( `https://swap-newapp.herokuapp.com/users/get-user/${data}`);
           response = await response.json();
           console.log("REPONSE DU BACK DEMO-PAGE:", response);
           

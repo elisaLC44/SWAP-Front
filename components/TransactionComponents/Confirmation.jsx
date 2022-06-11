@@ -34,7 +34,7 @@ function Confirmation({
   useEffect(() => {
     async function getDeclaration() {
       let rawResponse = await fetch(
-        `http://192.168.1.124:3000/get-declaration/${requestId}`
+        `https://swap-newapp.herokuapp.com/get-declaration/${requestId}`
       );
       let response = await rawResponse.json();
       console.log("REPONSE BACK GET DECLARATION", response.foundRequest.credit);
@@ -64,7 +64,7 @@ function Confirmation({
   useEffect(() => {
     async function getStatus() {
       let rawResponse = await fetch(
-        `http://192.168.1.124:3000/get-status/${transactionDetails.matchDetails._id}`
+        `https://swap-newapp.herokuapp.com/get-status/${transactionDetails.matchDetails._id}`
       );
       let response = await rawResponse.json();
       // console.log('reponse du Back - get-status', response.asker_status, response.helper_status, )
@@ -97,7 +97,7 @@ function Confirmation({
   /* ----------------------------------- CONFIRM PAR ASKER  ------------------------------ */
   const handleConfirm = async () => {
     let rawResponse = await fetch(
-      `http://192.168.1.124:3000/confirm/${requestId}/${creditBDD}/${user.token}`,
+      `https://swap-newapp.herokuapp.com/confirm/${requestId}/${creditBDD}/${user.token}`,
       {
         method: "PUT",
       }

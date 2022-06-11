@@ -196,7 +196,7 @@ function HelperDetailAfterSearch({ helperDetails }) {
                 ) : (
                   <View>
                     <Text style={{ fontSize: 14, color: "grey" }}>
-                      {helperDetails.firstName} n'a pas de descritpion 
+                      {helperDetails.firstName} n'a pas encore de descritpion 
                     </Text>
                   </View>
                 )}

@@ -87,8 +87,9 @@ function UserScreen(props) {
       findMaleUser();
     }
 
+    // https://swap-newapp.herokuapp.com/     http://192.168.1.124:3000/
     let rawResponse = await fetch(
-      `http://192.168.1.124:3000/users/update-avatar/${props.user.token}`,
+      `https://swap-newapp.herokuapp.com/users/update-avatar/${props.user.token}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -108,7 +109,7 @@ function UserScreen(props) {
     // idem catégories, les infos de l'état gender sont enregistrée dans le store, via le composant <DropDownGender/>
     setGender(props.user.gender);
     let response = await fetch(
-      `http://192.168.1.124:3000/users/update-gender/${props.user.token}`,
+      `https://swap-newapp.herokuapp.com/users/update-gender/${props.user.token}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -122,7 +123,7 @@ function UserScreen(props) {
 
   const handleSubmitAddress = async () => {
     let response = await fetch(
-      `http://192.168.1.124:3000/users/update-address/${props.user.token}`,
+      `https://swap-newapp.herokuapp.com/users/update-address/${props.user.token}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -136,7 +137,7 @@ function UserScreen(props) {
 
   const handleSubmitBio = async () => {
     let response = await fetch(
-      `http://192.168.1.124:3000/users/update-bio/${props.user.token}`,
+      `https://swap-newapp.herokuapp.com/users/update-bio/${props.user.token}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -154,7 +155,7 @@ function UserScreen(props) {
     // enregistrée dans le reducer/store à partir du composant <DropDownCategories/>
     setSelectedCat(props.user.categories);
     let response = await fetch(
-      `http://192.168.1.124:3000/users/update-categories/${props.user.token}`,
+      `https://swap-newapp.herokuapp.com/users/update-categories/${props.user.token}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },

@@ -55,7 +55,7 @@ function HomeScreen({ user, navigation }) {
     setHelperOn(false);
   };
 
-  let BGimage = require("../assets/bubbles-bleu.png"); //bubbles-pink
+  let BGimage = require("../assets/bubbles-bleu.png");
   if (askerOn) {
     BGimage = require("../assets/background-1.png");
   }

@@ -36,7 +36,7 @@ function AskerDetailScreen({ userDetails, user, getTransactionInfos }) {
 
   let handleContinue = async () => {
     let rawResponse = await fetch(
-      `http://192.168.1.124:3000/continue/${userDetails._id}/${user.token}`,
+      `https://swap-newapp.herokuapp.com/continue/${userDetails._id}/${user.token}`,
       {
         method: "PUT",
       }
@@ -51,7 +51,7 @@ function AskerDetailScreen({ userDetails, user, getTransactionInfos }) {
 
   const handleRefuse = async () => {
     let rawResponse = await fetch(
-      `http://192.168.1.124:3000/refuse/${userDetails._id}/${user.token}`,
+      `https://swap-newapp.herokuapp.com/refuse/${userDetails._id}/${user.token}`,
       {
         method: "DELETE",
       }

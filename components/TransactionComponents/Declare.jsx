@@ -103,7 +103,7 @@ function Declare({
   const [declarationDone, setDeclarationDone] = useState(false);
 
   let handleSubmit = async () => {
-    let rawResponse = await fetch(`http://192.168.1.124:3000/declare`, {
+    let rawResponse = await fetch(`https://swap-newapp.herokuapp.com/declare`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `requestId=${requestId}&token=${user.token}&declared_credit=${selectedValue}&declaration_date=${date}`,
@@ -123,7 +123,7 @@ function Declare({
   useEffect(() => {
     async function getDeclaration() {
       let rawResponse = await fetch(
-        `http://192.168.1.124:3000/get-declaration/${requestId}`
+        `https://swap-newapp.herokuapp.com/get-declaration/${requestId}`
       );
       let response = await rawResponse.json();
       console.log("REPONSE BACK GET DECLARATION", response);
@@ -232,7 +232,7 @@ function Declare({
               <AntDesign name="calendar" size={30} color="#F7CE46" />
             </View>
 
-            <Text>{error}</Text>
+            <Text style={{color: 'red', marginTop: 3}}>{error}</Text>
           </View>
 
           {/*  borderWidth: 1, borderColor: 'red' */}

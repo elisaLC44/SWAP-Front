@@ -35,7 +35,7 @@ function LeaveComment({
   useEffect(() => {
     async function getDeclaration() {
       let rawResponse = await fetch(
-        `http://192.168.1.124:3000/get-declaration/${requestId}`
+        `https://swap-newapp.herokuapp.com/get-declaration/${requestId}`
       );
       let response = await rawResponse.json();
       console.log("REPONSE BACK GET DECLARATION", response.foundRequest.credit);
@@ -64,7 +64,7 @@ function LeaveComment({
   useEffect(() => {
     async function getStatus() {
       let rawResponse = await fetch(
-        `http://192.168.1.124:3000/get-status/${transactionDetails.matchDetails._id}`
+        `https://swap-newapp.herokuapp.com/get-status/${transactionDetails.matchDetails._id}`
       );
       let response = await rawResponse.json();
       // console.log('reponse du Back - get-status', response.asker_status, response.helper_status, )
@@ -83,7 +83,7 @@ function LeaveComment({
   };
 
   const handleComment = async () => {
-    let rawResponse = await fetch(`http://192.168.1.124:3000/add-comment`, {
+    let rawResponse = await fetch(`https://swap-newapp.herokuapp.com/add-comment`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `token=${user.token}&comment=${comment}&opponent_id=${opponent_id}`,

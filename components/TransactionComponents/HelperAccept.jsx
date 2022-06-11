@@ -17,14 +17,13 @@ function HelperAccept({
   transactionDetails,
   disponibility,
   user,
-  // onUpdateStatus,
   updateStatus,
 }) {
   const navigation = useNavigation();
 
   let changeStatus = async () => {
     let rawResponse = await fetch(
-      `http://192.168.1.124:3000/accept/${requestId}/${user.token}`,
+      `https://swap-newapp.herokuapp.com/accept/${requestId}/${user.token}`,
       {
         method: "PUT",
       }
@@ -35,10 +34,6 @@ function HelperAccept({
       response.updatedStatus.helper_status
     );
     if (response.updatedStatus) {
-      // onUpdateStatus(
-      //   response.updatedStatus.helper_status,
-      //   response.updatedStatus.asker_status
-      // );
     }
     updateStatus()
   };

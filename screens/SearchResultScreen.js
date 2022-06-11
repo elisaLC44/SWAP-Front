@@ -9,7 +9,7 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { Button, Overlay } from "react-native-elements";
+import { Overlay } from "react-native-elements";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
@@ -42,7 +42,7 @@ function SearchResultScreen({
     if (isFocused) {
       async function getUsers() {
         let request = await fetch(
-          `http://192.168.1.124:3000/users-by-category/${newRequest.category}`
+          `https://swap-newapp.herokuapp.com/users-by-category/${newRequest.category}`
         );
         let response = await request.json();
         if (response.status) {
@@ -77,7 +77,7 @@ function SearchResultScreen({
   };
 
   const handleSubmit = async () => {
-    let request = await fetch("http://192.168.1.124:3000/add-request", {
+    let request = await fetch("https://swap-newapp.herokuapp.com/add-request", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `token=${user.token}&address_street=${

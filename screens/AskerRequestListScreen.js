@@ -1,9 +1,5 @@
 import React from "react";
-// { useState, useEffect }
 import { StyleSheet, ImageBackground, View, Text } from "react-native";
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 
 // import { connect } from 'react-redux';

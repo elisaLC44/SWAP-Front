@@ -9,7 +9,7 @@ import {
   Dimensions,
   TextInput,
 } from "react-native";
-import { Overlay, Input } from "react-native-elements";
+import { Overlay } from "react-native-elements";
 import { Dropdown } from "react-native-element-dropdown";
 import DropDownCategRequest from "../components/userInfoComponents/DropDownCategRequest";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
@@ -19,7 +19,6 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
 
-// props.navigation.goBack();
 
 /* ---------------------------------------- MAIN FUNCTION -------------------------------------------*/
 function ComposeRequestScreen(props) {
@@ -36,9 +35,8 @@ function ComposeRequestScreen(props) {
 
   /*----------------------- 1 - ADRESSE ---------------------------*/
 
-  // la position actuelle et une adresse par défaut
+  // -----  la position actuelle et une adresse par défaut
   const data = [
-    // { label: selectedAddress ? selectedAddress : "ma position actuelle",  value: "geolocation" },
     { label: "Ma position actuelle", value: "geolocation" },
     {
       label: props.user.address_street
