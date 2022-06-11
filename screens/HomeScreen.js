@@ -139,14 +139,14 @@ function HomeScreen({ user, navigation }) {
               width: 120,
               height: 100,
               resizeMode: "contain",
-              // borderColor: "red", borderWidth: 1,
+              // borderColor: "blue", borderWidth: 1,
             }}
             source={require("../assets/timeCounter.png")}
           />
 
-          <View style={{ width: 150, position: "absolute", left: 15, top: 20 }}>
+          <View style={{ position: "absolute", left: 15, top: 20, flexDirection: "column", alignItems: "center" }}>
             {/* borderColor: "red", borderWidth: 1, */}
-            <Text style={{ fontSize: 20, fontWeight: "bold", marginLeft: 20 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
               {user.user_credit}h
             </Text>
             <Text style={{ fontSize: 15, fontWeight: "bold" }}>

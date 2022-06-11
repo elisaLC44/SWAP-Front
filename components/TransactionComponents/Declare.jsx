@@ -83,9 +83,10 @@ function Declare({
   } else {
     button = (
       <View style={{ width: "100%", height: 40, marginTop: 3 }}>
+        <Text style={{ fontSize: 14, fontWeight: "bold", marginBottom: 8 }}>{firstName} accepté votre demande! </Text>
         <Text style={{ fontSize: 14 }}>
-          Une fois le service rendu {firstName} déclarera la date et la durée de
-          la prestation 📅.
+          ... une fois le service rendu {firstName} déclarera la date et la durée de
+          la prestation 📅
         </Text>
         <View style={[styles.buttonHelper]}></View>
       </View>
@@ -372,7 +373,7 @@ function Declare({
         </ImageBackground>
       </Overlay>
 
-      <Text style={{ fontSize: 13, color: "grey", marginTop: 35 }}>
+      <Text style={{ fontSize: 13, color: "grey", marginTop: 60 }}>
         Un problème? Pressez ici
       </Text>
     </View>

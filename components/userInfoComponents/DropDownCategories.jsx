@@ -51,6 +51,7 @@ const data = [
 ];
 
 
+
 /* ----------------------------- MAIN FUNCTION ---------------------------------*/
 function DropDownCategories(props) {
   const [selected, setSelected] = useState([]);

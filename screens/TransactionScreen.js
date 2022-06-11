@@ -98,7 +98,7 @@ function TransactionScreen({ user, transactionDetails }) {
     color2 = vert;
     color3 = vert;
     transactionStatus =
-      "Félicitation, le bénéficiant a validé votre déclaration!";
+      "Félicitation, le la transaction est terminée!";
   }
 
   // affichage des composants selon le statut de la transaction et qui est Asker et Helper

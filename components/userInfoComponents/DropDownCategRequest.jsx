@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     selectedStyle: {
       borderRadius: 12,
       backgroundColor: "white",
-      marginLeft: 10,
+      marginLeft: 15,
     },
     placeholderStyle: {
       color: "grey",
