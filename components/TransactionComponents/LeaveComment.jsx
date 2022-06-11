@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   TextInput,
+  ImageBackground,
 } from "react-native";
 import { Text, Avatar, Overlay } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
@@ -88,10 +89,11 @@ function LeaveComment({
       body: `token=${user.token}&comment=${comment}&opponent_id=${opponent_id}`,
     });
     let response = await rawResponse.json();
-    if (response) {
-      console.log("REPONSE DU BACK - COMMENT:", response);
+    if (response.updatedComments) {
+      console.log("REPONSE DU BACK - COMMENT:", response.updatedComments);
+      toggleOverlay();
     }
-    toggleOverlay();
+    
   };
 
   return (
@@ -265,25 +267,41 @@ function LeaveComment({
             onBackdropPress={() => toggleOverlay()}
             // fullScreen
             overlayStyle={{
-              paddingVertical: 70,
-              paddingHorizontal: 20,
               width: 400,
+              height: 300,
               borderRadius: 7,
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: 0,
             }}
           >
+          <ImageBackground
+            source={require("../../assets/background-1.png")}
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+
             <View
               style={{  flexDirection: "column",  justifyContent: "center",  alignItems: "center",
               }}
             >
-              <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 8 }}>
+              <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 30 }}>
                 Votre commentaire a bien été envoyé.
               </Text>
+              
               <Text
                 style={{ fontSize: 15, fontWeight: "bold",  }}
               >
                 Merci pour votre participation! 🤝
               </Text>
             </View>
+            </ImageBackground>
           </Overlay>
         </View>
       </View>

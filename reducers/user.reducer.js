@@ -18,7 +18,13 @@ export default function (user = {}, action) {
     } else if (action.type === "onUpdateAvatar") {
       let userCopy = user;
       userCopy.user_img = action.avatar ;
-      // console.log("REDUCER GENDER ==>", userCopy);
+      // console.log("REDUCER AVATAR ==>", userCopy);
+      return userCopy;
+    
+    } else if (action.type === "onUpdateUserCredit") {
+      let userCopy = user;
+      userCopy.user_credit = action.credit ;
+      console.log("REDUCER NEWCREDIT ==>", userCopy);
       return userCopy;
 
     } else {

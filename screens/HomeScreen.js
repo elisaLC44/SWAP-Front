@@ -61,6 +61,8 @@ function HomeScreen({ user, navigation }) {
   }
 
   console.log('avatar redux - Home: ', user.user_img)
+  console.log('user-credit redux - Home: ', user.user_credit)
+
   return (
     <ImageBackground source={BGimage} style={styles.container}>
       {/* <OVERLAY> expliquant à l'utitilisateur de compléter son profil pour utiliser l'appli */}

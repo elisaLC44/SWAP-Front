@@ -1,11 +1,10 @@
-import React, { useState, useEffect, } from "react";
-import { TouchableOpacity, View, StyleSheet, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { TouchableOpacity, View, StyleSheet, Image, ImageBackground } from "react-native";
 import { Text, Avatar, Input, Overlay } from "react-native-elements";
 import { Dropdown } from "react-native-element-dropdown";
 import { AntDesign } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 import { connect } from "react-redux";
 
@@ -21,7 +20,7 @@ function Declare({
   user,
   updateStatus,
 }) {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [date, setDate] = useState("");
   const [error, setError] = useState("");
@@ -84,7 +83,10 @@ function Declare({
   } else {
     button = (
       <View style={{ width: "100%", height: 40, marginTop: 3 }}>
-        <Text style={{  fontSize: 14, }}>Une fois le service rendu {firstName} déclarera la date et la durée de la prestation 📅.</Text>
+        <Text style={{ fontSize: 14 }}>
+          Une fois le service rendu {firstName} déclarera la date et la durée de
+          la prestation 📅.
+        </Text>
         <View style={[styles.buttonHelper]}></View>
       </View>
     );
@@ -96,7 +98,7 @@ function Declare({
     setOverlayVisible(!overlayVisible);
   };
 
-  const [message, setMessage] = useState("");
+  /*------------------ DECLARATION DU HELPER ------------------*/
   const [hideButton, setHideButton] = useState(false);
   const [declarationDone, setDeclarationDone] = useState(false);
 
@@ -112,9 +114,10 @@ function Declare({
       toggleOverlay();
       setHideButton(true);
     }
-    updateStatus()
+    updateStatus();
   };
 
+  /*------------------ une fois déclaré ---------------*/
   console.log("declaration done:", declarationDone);
 
   useEffect(() => {
@@ -138,13 +141,20 @@ function Declare({
     .replace(/[\u0300-\u036f]/g, "")}.png`;
 
   return (
-    <View style={{ width: 340, flexDirection: "column", alignItems: "center", marginBottom: 30 }}>
+    <View
+      style={{
+        width: 340,
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: 30,
+      }}
+    >
       {/* borderWidth: 1, borderColor: 'red', */}
 
       {/* PAGE TOP : titre et close button */}
 
       <View style={styles.card}>
-        <TouchableOpacity 
+        <TouchableOpacity
         // onPress={{}}
         >
           <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
@@ -192,7 +202,6 @@ function Declare({
             flexDirection: "row",
             justifyContent: "space-between",
             width: 340,
-           
           }}
         >
           <View style={{}}>
@@ -268,14 +277,17 @@ function Declare({
 
       {/* DECLARE BUTTON */}
       {hideButton && declarationDone && isAsker ? (
-        <View style={{ width: "100%", }}>
-          <View style={{ flexDirection: "row",  }}>
-          {/* <MaterialCommunityIcons name="handshake-outline" size={20} color="black" style={{marginRight : 5}} /> */}
-          <Text style={{marginBottom: 5}}> 🤝 Merci pour votre participation!</Text>
+        <View style={{ width: "100%" }}>
+          <View style={{ flexDirection: "row" }}>
+            {/* <MaterialCommunityIcons name="handshake-outline" size={20} color="black" style={{marginRight : 5}} /> */}
+            <Text style={{ marginBottom: 5 }}>
+              {" "}
+              🤝 Merci pour votre participation!
+            </Text>
           </View>
           <Text style={{}}>
-            Attendez que {firstName} confirme votre déclaration pour
-            gagner du crédit temps.
+            Attendez que {firstName} confirme votre déclaration pour gagner du
+            crédit temps.
           </Text>
         </View>
       ) : (
@@ -287,66 +299,82 @@ function Declare({
         // onBackdropPress={() => toggleOverlay()}
         // fullScreen
         overlayStyle={{
-          paddingVertical: 30,
-          paddingHorizontal: 20,
           width: 400,
+          height: 300,
           borderRadius: 7,
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 0,
         }}
       >
-        <View style={{ flexDirection: "column", marginLeft: 35 }}>
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 17,
-              marginRight: 5,
-              marginBottom: 15,
-            }}
-          >
-            Vérifiez votre déclaration avant envoi:
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ flexDirection: "column", marginRight: 60 }}>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={{ fontWeight: "bold", marginRight: 5 }}>Date</Text>
-                <AntDesign name="calendar" size={16} color="#F7CE46" />
-              </View>
-              <Text style={{ marginBottom: 30 }}>{date}</Text>
-            </View>
-
-            <View style={{ flexDirection: "column" }}>
-              <Text style={{ fontWeight: "bold", marginRight: 5 }}>Durée</Text>
-              <Text style={{ marginBottom: 30 }}>{selectedLabel}</Text>
-            </View>
-          </View>
-        </View>
-        {/* buttons */}
-        <View
+        <ImageBackground
+          source={require("../../assets/background-1.png")}
           style={{
-            flexDirection: "row",
+            flex: 1,
+            alignItems: "center",
             justifyContent: "center",
-            // position: "absolute",
-            // bottom: 0,
+            width: "100%",
+            height: "100%",
           }}
         >
-          <TouchableOpacity
-            style={styles.button3}
-            onPress={() => toggleOverlay()}
-          >
-            <Text style={styles.text3}>Modifier</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button4}
-            onPress={() => handleSubmit()}
-          >
-            <Text style={styles.text4}>Confirmer</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={{ flexDirection: "column", width: 300, }}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 17,
+                marginBottom: 15,
+              }}
+            >
+              Vérifiez votre déclaration avant envoi:
+            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "column", marginRight: 60 }}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ fontWeight: "bold", marginRight: 5 }}>
+                    Date
+                  </Text>
+                  <AntDesign name="calendar" size={16} color="#F7CE46" />
+                </View>
+                <Text style={{ marginBottom: 30 }}>{date}</Text>
+              </View>
 
-     </Overlay>
+              <View style={{ flexDirection: "column" }}>
+                <Text style={{ fontWeight: "bold", marginRight: 5 }}>
+                  Durée
+                </Text>
+                <Text style={{ marginBottom: 30 }}>{selectedLabel}</Text>
+              </View>
+            </View>
+          </View>
+          {/* buttons */}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              // position: "absolute",
+              // bottom: 0,
+            }}
+          >
+            <TouchableOpacity
+              style={styles.button3}
+              onPress={() => toggleOverlay()}
+            >
+              <Text style={styles.text3}>Modifier</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button4}
+              onPress={() => handleSubmit()}
+            >
+              <Text style={styles.text4}>Confirmer</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </Overlay>
 
-     <Text style={{ fontSize: 13, color: "grey", marginTop: 35,}}>
-          Un problème? Pressez ici
-        </Text>
+      <Text style={{ fontSize: 13, color: "grey", marginTop: 35 }}>
+        Un problème? Pressez ici
+      </Text>
     </View>
   );
 }

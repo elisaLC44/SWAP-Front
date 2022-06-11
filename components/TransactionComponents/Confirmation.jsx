@@ -4,11 +4,10 @@ import {
   View,
   StyleSheet,
   Image,
-  TextInput,
 } from "react-native";
 import { Text, Avatar } from "react-native-elements";
 
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 import { connect } from "react-redux";
 
@@ -23,13 +22,15 @@ function Confirmation({
   transactionDetails,
   user,
   updateStatus,
+  onUpdateUserCredit,
 }) {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [creditBDD, setCreditBDD] = useState(0);
   const [declareDateBDD, setDeclareDateBDD] = useState(0);
-  const [comment, setComment] = useState("");
 
+
+  /* ----------------------------------- affichage délcaration dans vignette  ------------------------------ */
   useEffect(() => {
     async function getDeclaration() {
       let rawResponse = await fetch(
@@ -54,7 +55,8 @@ function Confirmation({
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")}.png`;
 
-  /*----------- GET STATUS - affichage "Commentaires" ----------*/
+
+  /*------------------------------ GET STATUS - affichage "Commentaires" ----------------------------*/
   const [askerStatus, setAskerStatus] = useState(0);
   const [helperStatus, setHelperStatus] = useState(0);
 
@@ -92,6 +94,7 @@ function Confirmation({
     );
   }
 
+  /* ----------------------------------- CONFIRM PAR ASKER  ------------------------------ */
   const handleConfirm = async () => {
     let rawResponse = await fetch(
       `http://192.168.1.124:3000/confirm/${requestId}/${creditBDD}/${user.token}`,
@@ -100,13 +103,15 @@ function Confirmation({
       }
     );
     let response = await rawResponse.json();
-    if (response) {
-      console.log("response Route after POURSUIVRE:", response);
-      updateStatus();
+    if (response.updateUserCredit) {
+      console.log("response Route CONFIRM:", response.updateUserCredit);
+      updateStatus()
+      onUpdateUserCredit(response.updateUserCredit)
     }
   };
 
   const handleContest = async () => {};
+
 
   return (
     <View style={{}}>
@@ -296,7 +301,15 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, null)(Confirmation);
+function mapDispatchToProps(dispatch) {
+  return {
+    onUpdateUserCredit: function (credit) {
+      dispatch({ type: "onUpdateUserCredit", credit: credit });
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);
 
 //
 // ─────────────────────────────────────────────────── ──────────

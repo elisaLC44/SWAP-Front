@@ -17,7 +17,7 @@ function HelperAccept({
   transactionDetails,
   disponibility,
   user,
-  onUpdateStatus,
+  // onUpdateStatus,
   updateStatus,
 }) {
   const navigation = useNavigation();
@@ -35,10 +35,10 @@ function HelperAccept({
       response.updatedStatus.helper_status
     );
     if (response.updatedStatus) {
-      onUpdateStatus(
-        response.updatedStatus.helper_status,
-        response.updatedStatus.asker_status
-      );
+      // onUpdateStatus(
+      //   response.updatedStatus.helper_status,
+      //   response.updatedStatus.asker_status
+      // );
     }
     updateStatus()
   };
@@ -204,13 +204,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onUpdateStatus: function (helper, asker) {
-      dispatch({
-        type: "onUpdateStatus",
-        helper_status: helper,
-        asker_status: asker,
-      });
-    },
+    // onUpdateStatus: function (helper, asker) {
+    //   dispatch({
+    //     type: "onUpdateStatus",
+    //     helper_status: helper,
+    //     asker_status: asker,
+    //   });
+    // },
   };
 }
 

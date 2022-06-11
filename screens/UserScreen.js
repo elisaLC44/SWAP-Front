@@ -11,8 +11,7 @@ import {
   TextInput,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Input, Avatar } from "react-native-elements";
-import { FontAwesome } from "@expo/vector-icons";
+import { Overlay, Avatar } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -39,8 +38,8 @@ function UserScreen(props) {
 
   /* ---------------------------------------- */
 
-  const [randomUserPic, setRandomUserPic] = useState("")
-  const [picInBDD, setPicInBDD] = useState(props.user.user_img)
+  const [randomUserPic, setRandomUserPic] = useState("");
+  const [picInBDD, setPicInBDD] = useState(props.user.user_img);
   const [gender, setGender] = useState(props.user.gender);
   const [bio, setBio] = useState(props.user.bio);
   const [street, setStreet] = useState(props.user.address_street);
@@ -48,39 +47,44 @@ function UserScreen(props) {
   const [zipcode, setZipcode] = useState(props.user.address_zipcode);
   const [selectedCat, setSelectedCat] = useState([]);
 
- console.log("randomUserPic: ", randomUserPic)
- console.log("picInBDD: ", picInBDD)
- console.log("gender venant de redux :", props.user.gender)
+  /* -----------------------------AVATAR ---------------*/
+  console.log("randomUserPic: ", randomUserPic);
+  console.log("picInBDD: ", picInBDD);
+  console.log("gender venant de redux :", props.user.gender);
+
+  const [overlayVisible, setOverlayVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setOverlayVisible(!overlayVisible);
+  };
 
   const handleAvatar = async () => {
-        // useEffect(() => {
-    if(props.user.gender == "Non Binaire" || props.user.gender == "" ){
-      const findNonBinaryUser = async() => {
-        const data = await fetch(`https://randomuser.me/api/?results=5`)
-        const body = await data.json()
+    // useEffect(() => {
+    if (props.user.gender == "Non Binaire" || props.user.gender == "") {
+      const findNonBinaryUser = async () => {
+        const data = await fetch(`https://randomuser.me/api/?results=5`);
+        const body = await data.json();
         // console.log("random User result IF NON-BINARY {}: ", body.results)
-        setRandomUserPic(body.results[0].picture.medium)
-    }
-    findNonBinaryUser() 
-    
-   } else if(props.user.gender == "Femme"){
-    const findFemaleUser = async() => {
-      const data = await fetch(`https://randomuser.me/api/?gender=female`)
-      const body = await data.json()
-      // console.log("random User result IF FEMALE {}: ", body.results)
-      setRandomUserPic(body.results[0].picture.medium)
-  }
-  findFemaleUser() 
-  
- }  else {
-      const findMaleUser = async() => {
-        const data = await fetch(`https://randomuser.me/api/?gender=male`)
-        const body = await data.json()
+        setRandomUserPic(body.results[0].picture.medium);
+      };
+      findNonBinaryUser();
+    } else if (props.user.gender == "Femme") {
+      const findFemaleUser = async () => {
+        const data = await fetch(`https://randomuser.me/api/?gender=female`);
+        const body = await data.json();
+        // console.log("random User result IF FEMALE {}: ", body.results)
+        setRandomUserPic(body.results[0].picture.medium);
+      };
+      findFemaleUser();
+    } else {
+      const findMaleUser = async () => {
+        const data = await fetch(`https://randomuser.me/api/?gender=male`);
+        const body = await data.json();
         // console.log("random User result IF MALE {}: ", body.results)
-        setRandomUserPic(body.results[0].picture.thumbnail) 
-      // console.log("randomUsers", body.results[0].picture.thumbnail)
-    }
-    findMaleUser()
+        setRandomUserPic(body.results[0].picture.thumbnail);
+        // console.log("randomUsers", body.results[0].picture.thumbnail)
+      };
+      findMaleUser();
     }
 
     let rawResponse = await fetch(
@@ -92,15 +96,14 @@ function UserScreen(props) {
       }
     );
     let response = await rawResponse.json();
-    if(response.result){
+    if (response.result) {
       console.log(">>>>>>> avatar du back:", response.updatedUser.user_img);
     }
-    props.onUpdateAvatar(response.updatedUser.user_img)
-       
-  // },[])
-    }
+    props.onUpdateAvatar(response.updatedUser.user_img);
 
- 
+    // },[])
+  };
+
   const handleSubmitGender = async () => {
     // idem catégories, les infos de l'état gender sont enregistrée dans le store, via le composant <DropDownGender/>
     setGender(props.user.gender);
@@ -178,8 +181,6 @@ function UserScreen(props) {
     );
   });
 
- 
-
   return (
     <ImageBackground
       source={require("../assets/background-1.png")}
@@ -199,30 +200,99 @@ function UserScreen(props) {
             borderRadius: 50,
             position: "relative",
             right: 130,
-            bottom: 20,
+            bottom: 12,
             // borderColor: "grey",
             // borderWidth: 1,
           }}
         >
-
-          <TouchableOpacity
-          onPress={() => handleAvatar()}
-          >
-          <Avatar
-            size={70}
-            backgroundColor={"transparent"}
-            rounded
-            source={picInBDD ? {uri : props.user.user_img } : {uri : randomUserPic}}
-            title={props.user.firstName}
-            titleStyle={{ fontSize: 12 }}
-            containerStyle={{ // borderColor: 'grey', // borderWidth: 1,
-             }}
-          >
-            <Avatar.Accessory size={23} />
-          </Avatar>
-          <Text style={{ fontSize: 10, marginTop: 5}}>Changer d'avatar</Text>
+          <TouchableOpacity onPress={() => toggleOverlay()}>
+            <Avatar
+              size={70}
+              backgroundColor={"transparent"}
+              rounded
+              source={
+                picInBDD ? { uri: props.user.user_img } : { uri: randomUserPic }
+              }
+              title={props.user.firstName}
+              titleStyle={{ fontSize: 12 }}
+              containerStyle={
+                {
+                  // borderColor: 'grey', // borderWidth: 1,
+                }
+              }
+            >
+              <Avatar.Accessory size={23} />
+            </Avatar>
+            <Text style={{ fontSize: 10, marginTop: 5 }}>Changer d'avatar</Text>
           </TouchableOpacity>
         </View>
+        {/* flexDirection: "column" */}
+        <Overlay
+          isVisible={overlayVisible}
+          onBackdropPress={() => toggleOverlay()}
+          // fullScreen
+          overlayStyle={{
+            width: 400,
+            height: 300,
+            borderRadius: 7,
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 0,
+          }}
+        >
+          <ImageBackground
+            source={require("../assets/background-1.png")}
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <TouchableOpacity onPress={toggleOverlay} style={styles.button3}>
+                <Text style={styles.text3}>Annuler</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => handleAvatar()}
+                style={styles.button4}
+              >
+                <Text style={styles.text4}>Changer</Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 30,
+              }}
+            >
+              <Avatar
+                size={70}
+                backgroundColor={"transparent"}
+                rounded
+                source={
+                  picInBDD
+                    ? { uri: props.user.user_img }
+                    : { uri: randomUserPic }
+                }
+                title={props.user.firstName}
+                titleStyle={{ fontSize: 12 }}
+              ></Avatar>
+            </View>
+          </ImageBackground>
+        </Overlay>
 
         <View>
           <TouchableOpacity
@@ -269,7 +339,7 @@ function UserScreen(props) {
         <View style={{ width: 150, position: "absolute", left: 15, top: 20 }}>
           {/* borderColor: "red", borderWidth: 1, */}
           <Text style={{ fontSize: 20, fontWeight: "bold", marginLeft: 30 }}>
-            {3}H
+            {props.user.user_credit}H
           </Text>
           {/* props.user.user_credit */}
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>Crédit temps</Text>
@@ -287,7 +357,6 @@ function UserScreen(props) {
           marginTop: 20,
         }}
       >
-
         {/* INFORMATIONS USER */}
         <View
           style={{
@@ -320,7 +389,6 @@ function UserScreen(props) {
         }}
       >
         <View style={{ backgroundColor: "#FFFFFF", marginLeft: 20 }}>
-
           <View>
             <TouchableOpacity
               onPress={() => {
@@ -340,7 +408,7 @@ function UserScreen(props) {
             <View
               style={{ flexDirection: "column", justifyContent: "flex-start" }}
             >
-            <Text>{props.user.gender}</Text>
+              <Text>{props.user.gender}</Text>
               <DropDownGender />
             </View>
           </View>
@@ -358,7 +426,14 @@ function UserScreen(props) {
           </View>
 
           <View>
-            <Text style={{ marginTop: 22, marginBottom: 3, fontSize: 14, fontWeight: "bold" }}>
+            <Text
+              style={{
+                marginTop: 22,
+                marginBottom: 3,
+                fontSize: 14,
+                fontWeight: "bold",
+              }}
+            >
               Adresse
             </Text>
             <TextInput
@@ -387,7 +462,6 @@ function UserScreen(props) {
               onChangeText={(text) => setCity(text)}
               value={city}
             />
-           
           </View>
 
           <View>
@@ -403,7 +477,14 @@ function UserScreen(props) {
           </View>
 
           <View>
-            <Text style={{ marginTop: 22, marginBottom: 8, fontSize: 14, fontWeight: "bold" }}>
+            <Text
+              style={{
+                marginTop: 22,
+                marginBottom: 8,
+                fontSize: 14,
+                fontWeight: "bold",
+              }}
+            >
               Présentation
             </Text>
             <TextInput
@@ -538,12 +619,11 @@ const styles = StyleSheet.create({
     width: 300,
     height: 18,
   },
-  inputZip:{
-    width: 200
-    ,
+  inputZip: {
+    width: 200,
     height: 20,
   },
-  inputCity:{
+  inputCity: {
     width: 200,
     height: 20,
   },
@@ -552,5 +632,44 @@ const styles = StyleSheet.create({
   },
   inputOff: {
     borderBottomWidth: 0,
+  },
+  button3: {
+    backgroundColor: "#000000",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: 140,
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 5,
+    elevation: 3,
+    // marginBottom: 12,
+    marginRight: 25,
+  },
+  button4: {
+    backgroundColor: "#F7CE46",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: 140,
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 5,
+    elevation: 3,
+    // marginBottom: 12,
+  },
+  text3: {
+    color: "#FFF",
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 3,
+    fontWeight: "bold",
+    letterSpacing: 0.6,
+  },
+  text4: {
+    color: "#000000",
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 3,
+    fontWeight: "bold",
+    letterSpacing: 0.6,
   },
 });

@@ -116,6 +116,7 @@ function TransactionScreen({ user, transactionDetails }) {
           }
           category={transactionDetails.matchDetails.category}
           requestId={transactionDetails.matchDetails._id}
+          updateStatus={updateStatus}
         />
       );
     } else {
@@ -145,6 +146,7 @@ function TransactionScreen({ user, transactionDetails }) {
           }
           category={transactionDetails.matchDetails.category}
           requestId={transactionDetails.matchDetails._id}
+          updateStatus={updateStatus}
         />
       );
     } else {
@@ -157,6 +159,7 @@ function TransactionScreen({ user, transactionDetails }) {
           category={transactionDetails.matchDetails.category}
           description={transactionDetails.matchDetails.description}
           requestId={transactionDetails.matchDetails._id}
+          updateStatus={updateStatus}
         />
       );
     }
@@ -172,6 +175,7 @@ function TransactionScreen({ user, transactionDetails }) {
           }
           category={transactionDetails.matchDetails.category}
           requestId={transactionDetails.matchDetails._id}
+          updateStatus={updateStatus}
         />
       );
     } else {
@@ -184,6 +188,7 @@ function TransactionScreen({ user, transactionDetails }) {
           category={transactionDetails.matchDetails.category}
           description={transactionDetails.matchDetails.description}
           requestId={transactionDetails.matchDetails._id}
+          updateStatus={updateStatus}
         />
       );
     }
@@ -200,6 +205,7 @@ function TransactionScreen({ user, transactionDetails }) {
           opponent_id={transactionDetails.matchDetails.willing_helpers[0]._id}
           category={transactionDetails.matchDetails.category}
           requestId={transactionDetails.matchDetails._id}
+          updateStatus={updateStatus}
         />
       );
     } else {
@@ -213,6 +219,7 @@ function TransactionScreen({ user, transactionDetails }) {
           category={transactionDetails.matchDetails.category}
           description={transactionDetails.matchDetails.description}
           requestId={transactionDetails.matchDetails._id}
+          updateStatus={updateStatus}
         />
       );
     }

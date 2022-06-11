@@ -22,6 +22,8 @@ function AskerDetailScreen({ userDetails, user, getTransactionInfos }) {
   // CONTENU de USER DETAILS
   // userDetails
 
+  console.log("userDetails.description ASKERDETAILSCREEN:", userDetails.description)
+
   let description = userDetails.description;
   if (description.length > 200) {
     description = description.slice(0, 200) + "...";

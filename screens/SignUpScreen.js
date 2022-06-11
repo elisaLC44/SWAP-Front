@@ -98,7 +98,7 @@ function SignUpScreen(props) {
           <Input
             placeholder="Prénom"
             containerStyle={styles.input}
-            inputStyle={{ fontSize: 13 }}
+            inputStyle={{ fontSize: 15 }}
             inputContainerStyle={{ borderBottomWidth: 0 }}
             onChangeText={(text) => setFirstName(text)}
           ></Input>
@@ -106,7 +106,7 @@ function SignUpScreen(props) {
           <Input
             placeholder="Nom"
             containerStyle={styles.input}
-            inputStyle={{ fontSize: 13 }}
+            inputStyle={{ fontSize: 15 }}
             inputContainerStyle={{ borderBottomWidth: 0 }}
             onChangeText={(text) => setLastName(text)}
           ></Input>
@@ -114,7 +114,7 @@ function SignUpScreen(props) {
           <Input
             placeholder="Email"
             containerStyle={styles.input}
-            inputStyle={{ fontSize: 13 }}
+            inputStyle={{ fontSize: 15 }}
             inputContainerStyle={{ borderBottomWidth: 0 }}
             onChangeText={(text) => setEmail(text)}
           ></Input>
@@ -122,7 +122,7 @@ function SignUpScreen(props) {
           <Input
             placeholder="Mot de passe"
             containerStyle={styles.input}
-            inputStyle={{ fontSize: 13 }}
+            inputStyle={{ fontSize: 15 }}
             inputContainerStyle={{ borderBottomWidth: 0 }}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
     margin: 15,
     borderWidth: 0.5,
     paddingLeft: 15,
+    paddingTop: 3,
     borderRadius: 10,
     borderColor: "#E7E7E7",
     backgroundColor: "#FFFFFF",

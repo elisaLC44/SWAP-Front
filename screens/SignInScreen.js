@@ -78,7 +78,7 @@ function SignInScreen(props) {
         contentContainerStyle={{flexDirection: "column", alignItems: "center"}}>
           <Input
             containerStyle={styles.input}
-            inputStyle={{ fontSize: 13 }}
+            inputStyle={{ fontSize: 15 }}
             inputContainerStyle={{ borderBottomWidth: 0 }}
             placeholder="Email"
             onChangeText={(text) => setEmail(text)}
@@ -88,7 +88,7 @@ function SignInScreen(props) {
           <Input
             placeholder="Mot de passe"
             containerStyle={styles.input}
-            inputStyle={{ fontSize: 13 }}
+            inputStyle={{ fontSize: 15 }}
             inputContainerStyle={{ borderBottomWidth: 0 }}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
     margin: 15,
     borderWidth: 0.5,
     paddingLeft: 15,
+    paddingTop: 3,
     borderRadius: 10,
     borderColor: "#E7E7E7",
     backgroundColor: "#FFFFFF",

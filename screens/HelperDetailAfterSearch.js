@@ -16,12 +16,9 @@ import { connect } from "react-redux";
 
 /* ---------------------------------------- MAIN FUNCTION -------------------------------------------*/
 function HelperDetailAfterSearch({ helperDetails }) {
-  console.log(
-    "$$$$$ HELPER DETAILS INSERT DATE",
-    helperDetails.comments[0].insert_date
-  );
+  // console.log( "$$$$$ HELPER DETAILS INSERT DATE",helperDetails.comments[0].insert_date);
   const navigation = useNavigation();
-  // console.log(" helperDetails.comments",  helperDetails.comments)
+  console.log(" helperDetails.categories",  helperDetails.categories)
 
   return (
     <ImageBackground
@@ -198,8 +195,8 @@ function HelperDetailAfterSearch({ helperDetails }) {
                   </View>
                 ) : (
                   <View>
-                    <Text style={{ fontSize: 12, color: "grey" }}>
-                      {helperDetails.firstName} n'a pas encore de commentaire
+                    <Text style={{ fontSize: 14, color: "grey" }}>
+                      {helperDetails.firstName} n'a pas de descritpion 
                     </Text>
                   </View>
                 )}
@@ -241,7 +238,7 @@ function HelperDetailAfterSearch({ helperDetails }) {
                 })
               ) : (
                 <View>
-                  <Text style={styles.bodyText}>
+                  <Text style={{ fontSize: 14, color: "grey" }}>
                     {helperDetails.firstName} n'a pas encore de commentaire
                   </Text>
                 </View>
